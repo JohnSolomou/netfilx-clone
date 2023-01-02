@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./login.scss";
 function Login() {
   return (
@@ -18,7 +19,10 @@ function Login() {
           <input type="password" placeholder="password" />
           <button className="loginButton">Sign In</button>
           <span>
-            New to Netflix? <b>Sign up now.</b>
+            New to Netflix?{" "}
+            <Link to="/register">
+              <b>Sign up now.</b>
+            </Link>
           </span>
         </form>
       </div>

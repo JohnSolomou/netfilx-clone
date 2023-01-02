@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import "./register.scss";
 function Register() {
   const [email, setEmail] = useState("");
+  // eslint-disable-next-line
   const [password, setPassword] = useState("");
   const emailRef = useRef();
   const passwordRef = useRef();

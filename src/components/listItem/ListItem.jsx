@@ -1,45 +1,69 @@
 import { Add, PlayArrow, ThumbUpAltOutlined } from "@material-ui/icons";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./listItem.scss";
-const ListItem = ({ index }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const trailer =
-    "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761";
-  return (
-    <div
-      className="listItem"
-      style={{ left: isHovered && index * 225 - 50 + index * 2.5 }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <img
-        src="https://occ-0-1723-92.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABU7D36jL6KiLG1xI8Xg_cZK-hYQj1L8yRxbQuB0rcLCnAk8AhEK5EM83QI71bRHUm0qOYxonD88gaThgDaPu7NuUfRg.jpg?r=4ee"
-        alt=""
-      />
+import axios from "axios";
+import { Link } from "react-router-dom";
 
-      {isHovered && (
-        <>
-          <video src={trailer} autoPlay={true} loop />
-          <div className="itemInfo">
-            <div className="icons">
-              <PlayArrow />
-              <Add />
-              <ThumbUpAltOutlined />
+const ListItem = ({ index, item }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [movie, setMovie] = useState({});
+  useEffect(() => {
+    const getMovie = async () => {
+      try {
+        let res = await axios.get("/movies/find/" + item, {
+          method: "get",
+          headers: {
+            // ContentType: "text/json",
+            // accept: "text/json",
+            token:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTA1ZjliZTRiZmEzYTBhOWMxYTQ5ZCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3MjYyMTE3OCwiZXhwIjoxNjczMDUzMTc4fQ.QcM-LpBXyuYLIUi004CIP99aYqVDua2WNaiIspCawKY",
+          },
+        });
+        setMovie(res.data);
+        // console.log(res.data.trailer);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getMovie();
+  }, [item]);
+
+  return (
+    <Link to={{ pathname: "/watch", movie: movie }}>
+      <div
+        className="listItem"
+        style={{ left: isHovered && index * 225 - 50 + index * 2.5 }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <img src={movie.img} alt="" />
+        {isHovered && (
+          <div>
+            <video
+              src={movie.video}
+              autoPlay={true}
+              loop
+              // name="Access-Control-Allow-Origin"
+              // value="http://localhost:3000"
+            />
+            <div className="itemInfo">
+              <div className="icons">
+                <PlayArrow />
+                <Add />
+                <ThumbUpAltOutlined />
+              </div>
+              <div className="itemInfoTop">
+                <span>{movie.duration}</span>
+                <span className="limit">+{movie.limit}</span>
+                <span>{movie.year}</span>
+              </div>
+              <div className="desc">{movie.desc}</div>
+              <div className="genre">{movie.genre}</div>
             </div>
-            <div className="itemInfoTop">
-              <span>1 hour 14 mins</span>
-              <span className="limit">+16</span>
-              <span>1999</span>
-            </div>
-            <div className="desc">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
-              molestias itaque ex nesciunt modi. Lorem ipsum dolor sit amet
-            </div>
-            <div className="genre">Action</div>
           </div>
-        </>
-      )}
-    </div>
+        )}
+      </div>
+    </Link>
   );
 };
 

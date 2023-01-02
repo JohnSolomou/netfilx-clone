@@ -5,7 +5,7 @@ const Featured = ({ type }) => {
     <div className="featured">
       {type && (
         <div className="category">
-          <span>{type === "movie" ? "Movies" : "Series"}</span>
+          <span>{type === "movies" ? "Movies" : "Series"}</span>
           <select name="genre" id="genre">
             <option>Genre</option>
             <option value="adventure">Adventure</option>
@@ -26,17 +26,11 @@ const Featured = ({ type }) => {
       )}
       <img
         // width="100%"
-        src="https://cdn.pixabay.com/photo/2022/10/07/07/13/alps-7504344_960_720.jpg"
+        src="https://phantom-marca.unidadeditorial.es/7c11677bd84e714d1a42f609cc0b9f9b/resize/1320/f/jpg/assets/multimedia/imagenes/2022/10/18/16660956634363.jpg"
         alt=""
       />
       <div className="info">
-        <img
-          src="https://cdn.pixabay.com/photo/2018/04/10/23/22/silhouette-3309171_960_720.png"
-          alt=""
-        />
-        <span className="desc">
-          The Hills come alive with the sounds of music
-        </span>
+        <span className="desc"></span>
         <div className="buttons">
           <button className="play">
             <PlayArrow />
