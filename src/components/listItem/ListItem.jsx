@@ -1,28 +1,35 @@
-import { Add, PlayArrow, ThumbUpAltOutlined } from "@material-ui/icons";
-import React, { useState, useEffect } from "react";
 import "./listItem.scss";
+import {
+  PlayArrow,
+  Add,
+  ThumbUpAltOutlined,
+  ThumbDownOutlined,
+} from "@material-ui/icons";
+import { useEffect, useState, Fragment } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+// import { SERVER_URL } from "../../constants/constant";
 
-const ListItem = ({ index, item }) => {
+export default function ListItem({ index, item }) {
   const [isHovered, setIsHovered] = useState(false);
   const [movie, setMovie] = useState({});
+
   useEffect(() => {
     const getMovie = async () => {
       try {
-        let res = await axios.get("/movies/find/" + item, {
-          method: "get",
-          headers: {
-            // ContentType: "text/json",
-            // accept: "text/json",
-            token:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTA1ZjliZTRiZmEzYTBhOWMxYTQ5ZCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3MjYyMTE3OCwiZXhwIjoxNjczMDUzMTc4fQ.QcM-LpBXyuYLIUi004CIP99aYqVDua2WNaiIspCawKY",
-          },
-        });
+        const res = await axios.get(
+          process.env.REACT_APP_SERVER_URL + "/movies/find/" + item,
+          {
+            headers: {
+              token:
+                "Bearer " +
+                JSON.parse(localStorage.getItem("user")).accessToken,
+            },
+          }
+        );
         setMovie(res.data);
-        // console.log(res.data.trailer);
-      } catch (error) {
-        console.log(error);
+      } catch (err) {
+        console.log(err);
       }
     };
     getMovie();
@@ -38,19 +45,14 @@ const ListItem = ({ index, item }) => {
       >
         <img src={movie.img} alt="" />
         {isHovered && (
-          <div>
-            <video
-              src={movie.video}
-              autoPlay={true}
-              loop
-              // name="Access-Control-Allow-Origin"
-              // value="http://localhost:3000"
-            />
+          <Fragment>
+            <video src={movie.trailer} autoPlay={true} loop />
             <div className="itemInfo">
               <div className="icons">
-                <PlayArrow />
-                <Add />
-                <ThumbUpAltOutlined />
+                <PlayArrow className="icon" />
+                <Add className="icon" />
+                <ThumbUpAltOutlined className="icon" />
+                <ThumbDownOutlined className="icon" />
               </div>
               <div className="itemInfoTop">
                 <span>{movie.duration}</span>
@@ -60,11 +62,9 @@ const ListItem = ({ index, item }) => {
               <div className="desc">{movie.desc}</div>
               <div className="genre">{movie.genre}</div>
             </div>
-          </div>
+          </Fragment>
         )}
       </div>
     </Link>
   );
-};
-
-export default ListItem;
+}

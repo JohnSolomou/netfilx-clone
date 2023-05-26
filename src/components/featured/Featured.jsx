@@ -1,13 +1,46 @@
+import { InfoOutlined, PlayArrow } from "@material-ui/icons";
+import axios from "axios";
+import { useEffect, useState } from "react";
+// import { SERVER_URL } from "../../constants/constant";
 import "./featured.scss";
-import { PlayArrow, InfoOutlined } from "@material-ui/icons";
-const Featured = ({ type }) => {
+
+export default function Featured({ type, setGenre }) {
+  const [content, setContent] = useState({});
+
+  useEffect(() => {
+    const getRandomContent = async () => {
+      try {
+        const res = await axios.get(
+          process.env.REACT_APP_SERVER_URL + `/movies/random?type=${type}`,
+          {
+            headers: {
+              token:
+                "Bearer " +
+                JSON.parse(localStorage.getItem("user")).accessToken,
+            },
+          }
+        );
+        setContent(res.data[0]);
+      } catch (err) {
+        console.log(err, "error getting movies");
+      }
+    };
+
+    getRandomContent();
+  }, [type]);
+
   return (
     <div className="featured">
       {type && (
         <div className="category">
           <span>{type === "movies" ? "Movies" : "Series"}</span>
-          <select name="genre" id="genre">
+          <select
+            name="genre"
+            id="genre"
+            onChange={(e) => setGenre(e.target.value)}
+          >
             <option>Genre</option>
+            <option value="action">Action</option>
             <option value="adventure">Adventure</option>
             <option value="comedy">Comedy</option>
             <option value="crime">Crime</option>
@@ -24,13 +57,10 @@ const Featured = ({ type }) => {
           </select>
         </div>
       )}
-      <img
-        // width="100%"
-        src="https://phantom-marca.unidadeditorial.es/7c11677bd84e714d1a42f609cc0b9f9b/resize/1320/f/jpg/assets/multimedia/imagenes/2022/10/18/16660956634363.jpg"
-        alt=""
-      />
+      <img src={content.img} alt="" />
       <div className="info">
-        <span className="desc"></span>
+        <img src={content.img} alt="" />
+        <span className="desc">{content.desc}</span>
         <div className="buttons">
           <button className="play">
             <PlayArrow />
@@ -44,6 +74,4 @@ const Featured = ({ type }) => {
       </div>
     </div>
   );
-};
-
-export default Featured;
+}
