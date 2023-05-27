@@ -1,5 +1,7 @@
 import { useState, useRef } from "react";
 import "./register.scss";
+import { Link } from "@material-ui/core";
+
 function Register() {
   const [email, setEmail] = useState("");
   // eslint-disable-next-line
@@ -22,7 +24,9 @@ function Register() {
             alt=""
           />
 
-          <button className="loginButton">Sign In</button>
+          <Link to="/login" className="loginButton">
+            Sign In
+          </Link>
         </div>
       </div>
       <div className="container">

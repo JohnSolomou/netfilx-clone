@@ -5,6 +5,7 @@ import "./watch.scss";
 export default function Watch() {
   const location = useLocation();
   const movie = location.movie;
+  console.log(movie.trailer, "------------movie");
   return (
     <div className="watch">
       <Link to="/">
@@ -13,12 +14,13 @@ export default function Watch() {
           Home
         </div>
       </Link>
+
       <video
         className="video"
         autoPlay
         progress="true"
         controls
-        src={movie.video}
+        src={movie.trailer}
       />
     </div>
   );

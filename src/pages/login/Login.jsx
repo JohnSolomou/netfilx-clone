@@ -6,12 +6,13 @@ import "./login.scss";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { isFetching, dispatch } = useContext(AuthContext);
+  const { dispatch } = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
     login({ email, password }, dispatch);
   };
+
   return (
     <div className="login">
       <div className="top">
@@ -36,11 +37,7 @@ export default function Login() {
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button
-            className="loginButton"
-            onClick={handleLogin}
-            disabled={isFetching}
-          >
+          <button className="loginButton" onClick={handleLogin}>
             Sign In
           </button>
           <span>

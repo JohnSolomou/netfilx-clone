@@ -3,15 +3,11 @@ import { Search, Notifications, ArrowDropDown } from "@material-ui/icons";
 import SettingsIcon from "@material-ui/icons/Settings";
 import "./navbar.scss";
 import { Link } from "react-router-dom";
-import { logoutStart } from "../../authContext/AuthActions";
+import { logout } from "../../authContext/AuthActions";
 import { AuthContext } from "../../authContext/AuthContext";
 
 const Navbar = () => {
   const { dispatch } = useContext(AuthContext);
-
-  const handleLogout = () => {
-    logoutStart(dispatch);
-  };
 
   const [isScrolled, setIsScrolled] = useState(false);
   window.onscroll = () => {
@@ -48,6 +44,7 @@ const Navbar = () => {
           <Notifications className="icon" />
 
           <div className="profile">
+            <ArrowDropDown className="icon" />
             <img
               src="https://cdn.pixabay.com/photo/2014/09/04/05/27/cookies-435296_960_720.png"
               alt=""
@@ -65,9 +62,8 @@ const Navbar = () => {
                 <span className="name">Settings</span>
               </div>
               <hr />
-              <button onClick={handleLogout}>Log Out</button>
+              <button onClick={() => dispatch(logout())}>Log Out</button>
             </div>
-            <ArrowDropDown />
           </div>
         </div>
       </div>
