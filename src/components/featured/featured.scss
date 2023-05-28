@@ -38,6 +38,9 @@
     .desc {
       margin: 20px 0px;
       font-size: 20px;
+      @media (max-width: 480) {
+        width: 60vw;
+      }
     }
     .buttons {
       display: flex;

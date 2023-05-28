@@ -1,4 +1,5 @@
 import "./listItem.scss";
+import { REACT_APP_SERVER_URL } from "../../constants/constant";
 import {
   PlayArrow,
   Add,
@@ -18,9 +19,11 @@ export default function ListItem({ index, item }) {
     const getMovie = async () => {
       try {
         const res = await axios.get(
-          process.env.REACT_APP_SERVER_URL + "/movies/find/" + item,
+          REACT_APP_SERVER_URL + "/movies/find/" + item,
           {
             headers: {
+              "Content-Type": "application/json",
+              accept: "application/json",
               token:
                 "Bearer " +
                 JSON.parse(localStorage.getItem("user")).accessToken,

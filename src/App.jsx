@@ -22,16 +22,14 @@ const App = () => {
         <Route exact path="/">
           {user ? <Home /> : <Redirect to="/register" />}
         </Route>
-        <Route exact path="/register">
+        <Route path="/register">
           {!user ? <Register /> : <Redirect to="/" />}
         </Route>
-        <Route exact path="/login">
-          {!user ? <Login /> : <Redirect to="/" />}
-        </Route>
+        <Route path="/login">{!user ? <Login /> : <Redirect to="/" />}</Route>
         {user && (
           <>
             <Route path="/movies">
-              <Home type="movies" />
+              <Home type="movie" />
             </Route>
             <Route path="/series">
               <Home type="series" />

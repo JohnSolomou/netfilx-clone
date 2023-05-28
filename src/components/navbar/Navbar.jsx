@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Search, Notifications, ArrowDropDown } from "@material-ui/icons";
+import { Search, Notifications } from "@material-ui/icons";
 import SettingsIcon from "@material-ui/icons/Settings";
 import "./navbar.scss";
 import { Link } from "react-router-dom";
@@ -26,15 +26,10 @@ const Navbar = () => {
             <span>homepage</span>
           </Link>
           <Link to="/series" className="link">
-            <span>Series</span>
+            <span className="navbarLink">Series</span>
           </Link>
           <Link to="/movies" className="link">
-            <span>Movies</span>
-          </Link>
-
-          <span>New and Popular</span>
-          <Link to="/list" className="link">
-            <span>My List</span>
+            <span className="navbarLink">Movies</span>
           </Link>
         </div>
         <div className="right">
@@ -44,7 +39,6 @@ const Navbar = () => {
           <Notifications className="icon" />
 
           <div className="profile">
-            <ArrowDropDown className="icon" />
             <img
               src="https://cdn.pixabay.com/photo/2014/09/04/05/27/cookies-435296_960_720.png"
               alt=""
@@ -54,6 +48,7 @@ const Navbar = () => {
                 <img
                   src="https://cdn.pixabay.com/photo/2014/09/04/05/27/cookies-435296_960_720.png"
                   alt=""
+                  className="profilepic"
                 />
                 <span className="name">John</span>
               </div>

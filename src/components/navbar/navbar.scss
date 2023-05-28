@@ -1,3 +1,4 @@
+@import "../../app.scss";
 .navbar {
   color: white;
   font-size: 14px;
@@ -16,45 +17,73 @@
   justify-content: space-between;
   align-items: center;
   height: 70px;
-  .left {
-    display: flex;
-    align-items: center;
-    img {
-      height: 50px;
-      margin-right: 20px;
-    }
-    span {
-      cursor: pointer;
+  @media (max-width: 480px) {
+    padding: 0 10px 0 10px;
+  }
+}
+.left {
+  display: flex;
+  align-items: center;
+  img {
+    height: 50px;
+    margin-right: 20px;
+    @media (max-width: 480px) {
+      height: 15px;
+      width: 80px;
       margin-right: 20px;
     }
   }
-  .right {
-    display: flex;
-    align-items: center;
-    .icon {
-      margin: 0px 15px;
+}
+span {
+  cursor: pointer;
+  margin-right: 20px;
+  @include tablet {
+    display: none;
+  }
+
+  &.navbarLink {
+    @include tablet {
+      display: block;
+    }
+  }
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  .icon {
+    margin: 0px 15px;
+    cursor: pointer;
+  }
+  img {
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+  }
+  .profile {
+    .options {
+      display: none;
+      background-color: var(--main-color);
+      border-radius: 5px;
       cursor: pointer;
     }
-    img {
-      height: 50px;
-      width: 50px;
+    span {
+      padding: 10px;
       cursor: pointer;
     }
-    .profile {
+    &:hover {
       .options {
-        display: none;
-        background-color: var(--main-color);
-        border-radius: 5px;
-      }
-      span {
-        padding: 10px;
-        cursor: pointer;
-      }
-      &:hover {
-        .options {
-          display: flex;
-          flex-direction: column;
-          position: absolute;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        @media (max-width: 480px) {
+          height: 100px;
+          width: 50px;
+        }
+        button {
+          cursor: pointer;
+          background-color: #000000;
+          color: white;
         }
       }
     }
