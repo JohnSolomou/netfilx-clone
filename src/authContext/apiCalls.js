@@ -6,7 +6,7 @@ export const login = async (user, dispatch) => {
   dispatch(loginStart());
   try {
     const res = await axios.post(
-      process.env.REACT_APP_SERVER_URL + "/auth/login",
+      process.env.REACT_APP_SERVER_URL + "auth/login",
       user
     );
     dispatch(loginSuccess(res.data));
