@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { Fragment, useContext } from "react";
 import "./app.scss";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
@@ -12,7 +12,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-// import { Fragment } from "react";
+
 const App = () => {
   // const user = true;
   const { user } = useContext(AuthContext);
@@ -27,7 +27,7 @@ const App = () => {
         </Route>
         <Route path="/login">{!user ? <Login /> : <Redirect to="/" />}</Route>
         {user && (
-          <>
+          <Fragment>
             <Route path="/movies">
               <Home type="movie" />
             </Route>
@@ -37,7 +37,7 @@ const App = () => {
             <Route path="/watch">
               <Watch />
             </Route>
-          </>
+          </Fragment>
         )}
       </Switch>
     </Router>
