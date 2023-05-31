@@ -1,6 +1,5 @@
 import axios from "axios";
-import { useRef } from "react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./register.scss";
 import { REACT_APP_SERVER_URL } from "../../constants/constant";
@@ -24,7 +23,7 @@ export default function Register() {
     setPassword(passwordRef.current.value);
     setUsername(usernameRef.current.value);
     try {
-      await axios.post(REACT_APP_SERVER_URL + "/auth/register", {
+      await axios.post(process.env.REACT_APP_SERVER_URL + "auth/register", {
         email,
         username,
         password,
@@ -41,9 +40,7 @@ export default function Register() {
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
             alt=""
           />
-          <Link to="/login">
-            <span className="loginButton">LogIn</span>
-          </Link>
+          <button className="loginButton">Sign In</button>
         </div>
       </div>
       <div className="container">
